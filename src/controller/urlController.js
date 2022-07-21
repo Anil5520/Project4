@@ -59,7 +59,7 @@ const createShortenURL = async function (req, res) {
                 return res.status(200).send({ status: true, message: "Data coming from Cache", data: JSON.parse(cachedUrlData) })
             }
             else {
-                const findUrl = await urlModel.findOne({ longUrl }).select({ _id: 0, longUrl: 1, shortUrl: 1, urlCode: 1 })
+                const findUrl = await urlModel.findOne({ $or: [{ longUrl: longUrl }, { shortUrl: longUrl }] }).select({ _id: 0, longUrl: 1, shortUrl: 1, urlCode: 1 })
                 if (findUrl) {
                     await SET_ASYNC(`${longUrl}`, JSON.stringify(findUrl), "EX", 2 * 60)
                     return res.status(200).send({ status: true, message: "data coming from DB", data: findUrl })
