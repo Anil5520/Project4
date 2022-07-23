@@ -5,9 +5,9 @@ const redis = require("redis")
 const { promisify } = require("util");
 
 //-----------------------------------------------------------------------------------//
-
+ 
 //Connect to redis
-const redisClient = redis.createClient(
+const redisClient = redis.createClient( 
     13086,
     "redis-13086.c212.ap-south-1-1.ec2.cloud.redislabs.com",
     { no_ready_check: true }
